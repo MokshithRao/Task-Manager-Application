@@ -17,6 +17,19 @@ body {
     padding: 35px 8%;
 }
 
+.hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.hero-text {
+    flex: 1;
+}
+
 .hero h1 {
     font-size: 40px;
     margin: 10px 0;
@@ -28,6 +41,46 @@ body {
     color: #E0E9E2;
     margin-bottom: 0;
 }
+
+.hero .eyebrow {
+    letter-spacing: 2px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.hero-image {
+    display: block;
+    width: 280px;
+    height: 150px;
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: 13px;
+    flex-shrink: 0;
+    margin-right: -40px;
+}
+
+/* Responsive header */
+@media (max-width: 700px) {
+    .hero {
+        padding: 35px 6%;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 25px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero-image {
+        width: 100%;
+        height: 200px;
+    }
+}
+
 
 .eyebrow {
     letter-spacing: 2px;
@@ -357,3 +410,4 @@ body {
         flex-direction: column;
     }
 }
+
