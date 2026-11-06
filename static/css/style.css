@@ -1,20 +1,359 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Main page styling */
 body {
     margin: 0;
-    padding: 30px;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f3f6fb;
-    color: #1e293b;
+    font-family: Arial, sans-serif;
+    background: #F7F5F0;
+    color: #292D2A;
 }
 
-h1 {
-    color: #2563eb;
+/* Header section */
+.hero {
+    background: #315C4C;
+    color: #FFFFFF;
+    padding: 35px 8%;
 }
 
-h2 {
-    color: #334155;
+.hero h1 {
+    font-size: 40px;
+    margin: 10px 0;
+    letter-spacing: -1.2px;
+    font-weight: 700;
 }
 
-p {
-    font-size: 16px;
-    margin-bottom: 12px;
+.hero p {
+    color: #E0E9E2;
+    margin-bottom: 0;
+}
+
+.eyebrow {
+    letter-spacing: 2px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Main content container */
+.container {
+    width: min(900px, 92%);
+    margin: 35px auto;
+}
+
+/* Add task and task list panels */
+.add-panel,
+.task-panel {
+    background: #FFFFFF;
+    padding: 28px;
+    margin-bottom: 24px;
+    border: 1px solid #E7E4DC;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(41, 45, 42, 0.04);
+}
+
+.add-panel h2,
+.task-panel h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 21px;
+}
+
+/* Forms and input fields */
+form {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid #D9DED6;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #292D2A;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus {
+    border-color: #315C4C;
+    box-shadow: 0 0 0 3px rgba(49, 92, 76, 0.10);
+}
+
+/* Common button styling */
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 11px 16px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+/* Add task button */
+.add-panel button {
+    background: #315C4C;
+}
+
+.add-panel button:hover {
+    background: #244638;
+}
+
+/* Individual task cards */
+.task-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 22px 0;
+}
+
+.task-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.task-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.task-card:last-child {
+    border-bottom: none;
+}
+
+.task-info {
+    min-width: 0;
+}
+
+.task-card h3 {
+    margin: 0 0 8px;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.task-card span {
+    color: #788078;
+    font-size: 13px;
+}
+
+/* Completed task styling */
+.completed {
+    text-decoration: line-through;
+    color: #929B92;
+}
+
+/* Task action buttons */
+.task-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.task-actions form {
+    display: flex;
+    gap: 8px;
+}
+
+.task-actions input {
+    width: 150px;
+    flex: none;
+}
+
+/* Complete button */
+.complete-button {
+    background: #4B8066;
+}
+
+.complete-button:hover {
+    background: #35664F;
+}
+
+/* Edit button */
+.edit-button {
+    background: #A8B9A0;
+    color: #292D2A;
+}
+
+.edit-button:hover {
+    background: #91A68A;
+}
+
+/* Delete button */
+.delete-button {
+    background: #B85C50;
+}
+
+.delete-button:hover {
+    background: #9E473D;
+}
+
+/* Empty task message */
+.empty {
+    padding: 25px 0;
+    color: #788078;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 700px) {
+
+    .hero {
+        padding: 30px 6%;
+    }
+
+    .hero h1 {
+        font-size: 29px;
+    }
+
+    .container {
+        width: 92%;
+        margin: 22px auto;
+    }
+
+    .add-panel,
+    .task-panel {
+        padding: 20px;
+    }
+
+    .task-card {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .task-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .task-actions form {
+        flex-wrap: wrap;
+    }
+
+    .task-actions input {
+        width: 130px;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .add-panel form {
+        flex-direction: column;
+    }
+
+    .task-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .task-actions form {
+        width: 100%;
+    }
+
+    .task-actions input {
+        flex: 1;
+        width: 0;
+    }
+}
+
+/* Improve typography */
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.5;
+}
+
+/* Task status badges */
+.task-status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.status-pending {
+    background: #F5EBD5;
+    color: #8A6725;
+}
+
+.status-completed {
+    background: #E2EEE5;
+    color: #35664F;
+}
+
+/* Improve task editing input */
+.task-actions input {
+    width: 180px;
+    flex: none;
+}
+
+/* Improve task spacing */
+.task-card {
+    padding: 22px 0;
+}
+
+/* Improve panel headings */
+.add-panel h2,
+.task-panel h2 {
+    letter-spacing: -0.3px;
+}
+
+/* Better layout on smaller screens */
+@media (max-width: 700px) {
+    .task-actions {
+        flex-wrap: wrap;
+    }
+
+    .task-actions input {
+        width: 160px;
+    }
+}
+
+/* Task statistics section */
+.stats-container {
+    display: flex;
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.stat-card {
+    flex: 1;
+    background: #F7F5F0;
+    padding: 18px;
+    border: 1px solid #E7E4DC;
+    border-radius: 10px;
+}
+
+.stat-card h3 {
+    margin: 0;
+    font-size: 26px;
+    color: #315C4C;
+}
+
+.stat-card p {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: #788078;
+}
+
+/* Stack statistics on smaller screens */
+@media (max-width: 450px) {
+    .stats-container {
+        flex-direction: column;
+    }
 }
