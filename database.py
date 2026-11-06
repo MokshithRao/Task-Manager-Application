@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
+
 DATABASE_URL = "sqlite:///./task_manager.db"
 
 
@@ -17,3 +18,13 @@ SessionLocal = sessionmaker(
 
 
 Base = declarative_base()
+
+
+# Provide a database session and close it after use.
+def get_db():
+    db = SessionLocal()
+
+    try:
+        yield db
+    finally:
+        db.close()

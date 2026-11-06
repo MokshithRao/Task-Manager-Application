@@ -1,15 +1,19 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Depends
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from database import engine, SessionLocal, Base
-from database import engine, Base
+from sqlalchemy.orm import Session
+from database import engine, Base, get_db
 from models import Task
 
 
 app = FastAPI()
 
+# Load HTML templates from the templates folder.
 templates = Jinja2Templates(directory="templates")
 
+
+# Serve CSS and images from the static folder.
 app.mount(
     "/static",
     StaticFiles(directory="static"),
@@ -17,7 +21,7 @@ app.mount(
 )
 
 
-
+# Create database tables for registered ORM models.
 Base.metadata.create_all(bind=engine)
 
 
@@ -26,8 +30,9 @@ Base.metadata.create_all(bind=engine)
 def home():
     return {"message": "Welcome to Task Manager"}
 
+
 @app.get("/tasks")
-def show_tasks(request: Request):
+def show_tasks(request: Request, db: Session = Depends(get_db)):
 
     tasks = [
         {
