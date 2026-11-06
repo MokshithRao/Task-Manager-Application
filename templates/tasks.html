@@ -4,69 +4,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet", href="{{ url_for('static', path='/css/style.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}">
+
     <title>Task Manager</title>
 </head>
 
-
 <body>
-    <h1>My Task Manager</h1>
-    <h2>Your Tasks</h2>
 
-    {% if tasks %}
-        {% for task in tasks %}
+    <header class="hero">
+        <div>
+            <p class="eyebrow">LESS CHAOS. MORE CLARITY.</p>
+            <h1>My Task Manager</h1>
+            <p>Bring your daily tasks together in one place.</p>
+        </div>
+    </header>
 
-            <p>
-                {{ task.title}} - 
+    <main class="container">
+        <section class="add-panel">
+            <h2>Add a new task</h2>
 
-                {% if task.completed %}
-                    completed
-                {% else %}
-                    Pending
-
-                    <form action="/tasks/{{ task.id}}/complete" method="post">
-                        <button type="submit">Mark as Completed</button>
-                    </form>
-                {% endif %}
-            </p>
-
-            <form action="/tasks/{{ task.id }}/edit" method="post">
+            <form action="/tasks" method="post">
                 <input
                     type="text"
                     name="title"
-                    value="{{ task.title }}"
+                    placeholder="What do you need to do?"
                     required
                 >
 
-                <button type="submit">Update</button>
+                <button type="submit">Add Task</button>
             </form>
+        </section>
 
-            <form action="/tasks/{{ task.id }}/delete" method="post">
-                <button type="submit">Delete</button>
-            </form>
-    
-        {% endfor %}
-    
-    {% else %}
-        
-        <p>No tasks available. Add your first task!</p>
-    
-    {% endif %}
+        <section class="task-panel">
+            <h2>Your Tasks</h2>
 
+            <!-- Display task statistics -->
+            <div class="stats-container">
 
-    <form action="/tasks" method="post">
-        <input
-            type="text"
-            name="title"
-            placeholder="Enter a new task"
-            required
-        >
+                <div class="stat-card">
+                    <h3>{{ total_tasks }}</h3>
+                    <p>Total Tasks</p>
+                </div>
 
-        <button type="submit">Add Task</button>
-    </form>
+                <div class="stat-card">
+                    <h3>{{ completed_tasks }}</h3>
+                    <p>Completed</p>
+                </div>
 
-    
+                <div class="stat-card">
+                    <h3>{{ pending_tasks }}</h3>
+                    <p>Pending</p>
+                </div>
+
+            </div>
+
+            {% if tasks %}
+
+                <div class="task-list">
+
+                    {% for task in tasks %}
+
+                        <article class="task-card">
+
+                            <div class="task-info">
+                                <h3 class="{% if task.completed %}completed{% endif %}">
+                                    {{ task.title }}
+                                </h3>
+
+                                <span class="task-status {% if task.completed %}status-completed{% else %}status-pending{% endif %}">
+                                    {% if task.completed %}
+                                        Completed
+                                    {% else %}
+                                        Pending
+                                    {% endif %}
+                                </span>
+                            </div>
+
+                            <div class="task-actions">
+
+                                {% if not task.completed %}
+                                    <form action="/tasks/{{ task.id }}/complete" method="post">
+                                        <button class="complete-button" type="submit">
+                                            Complete
+                                        </button>
+                                    </form>
+                                {% endif %}
+
+                                <form action="/tasks/{{ task.id }}/edit" method="post">
+                                    <input
+                                        type="text"
+                                        name="title"
+                                        value="{{ task.title }}"
+                                        required
+                                    >
+
+                                    <button class="edit-button" type="submit">
+                                        Update
+                                    </button>
+                                </form>
+
+                                <form action="/tasks/{{ task.id }}/delete" method="post">
+                                    <button class="delete-button" type="submit">
+                                        Delete
+                                    </button>
+                                </form>
+
+                            </div>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <p class="empty">No tasks yet. Add your first task above.</p>
+
+            {% endif %}
+
+        </section>
+
+    </main>
 
 </body>
-
 </html>

@@ -38,11 +38,24 @@ def show_tasks(request: Request, db: Session = Depends(get_db)):
     tasks = db.query(Task).order_by(Task.id.desc()).all()
 
 
+    total_tasks = len(tasks)
+    completed_tasks = 0
+    pending_tasks = 0
+
+    for task in tasks:
+        if task.completed:
+            completed_tasks = completed_tasks + 1
+        else:
+            pending_tasks = pending_tasks + 1
+
     return templates.TemplateResponse(
-        request = request,
-        name = "tasks.html",
-        context = {
-            "tasks": tasks
+        request=request,
+        name="tasks.html",
+        context={
+            "tasks": tasks,
+            "total_tasks": total_tasks,
+            "completed_tasks": completed_tasks,
+            "pending_tasks": pending_tasks
         }
     )
 
