@@ -1,8 +1,15 @@
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+app.mount(
+    "/static",
+    StaticFiles(directory="static"),
+    name="static"
+)
 
 @app.get("/")
 def home():
@@ -11,11 +18,25 @@ def home():
 @app.get("/tasks")
 def show_tasks(request: Request):
 
+    tasks = [
+        {
+            "title": "Learn FastAPI",
+            "completed": True
+        },
+        {
+            "title": "Complete SQL assignment",
+            "completed": False
+        },
+        {
+            "title": "Build Task Manager",
+            "completed": False
+        }
+    ]
+
     return templates.TemplateResponse(
         request = request,
         name = "tasks.html",
         context = {
-            "title": "My Task Manager",
-            "message": "Welcome! Start managing your tasks"
+            "tasks": tasks
         }
     )

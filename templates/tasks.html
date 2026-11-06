@@ -4,14 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet", href="{{ url_for('static', path='/css/style.css') }}">
     <title>Task Manager</title>
 </head>
 
 
 <body>
-    <h1>{{ title }}</h1>
+    <h1>My Task Manager</h1>
+    <h2>Your Tasks</h2>
 
-    <p>{{ message}} </p>
+    {% if tasks %}
+        {% for task in tasks %}
+
+            {% if task.completed == True %}
+
+                <p>{{ task.title, 'completed' }} </p>
+            {% else %}
+                <p>{{ task.title, 'Pending' }}</p>
+            {% endif %}
+    
+        {% endfor %}
+    
+    {% else %}
+        
+        <p>No tasks available. Add your first task!</p>
+    
+    {% endif %}
 </body>
 
 </html>
