@@ -1,6 +1,7 @@
-from fastapi import FastAPI, Request, Depends
+from fastapi import FastAPI, Request, Depends, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
 from database import engine, SessionLocal, Base
 from sqlalchemy.orm import Session
 from database import engine, Base, get_db
@@ -44,3 +45,13 @@ def show_tasks(request: Request, db: Session = Depends(get_db)):
             "tasks": tasks
         }
     )
+
+
+@app.post("/tasks")
+def create_task(title: str = Form(...), db: Session = Depends(get_db)):
+    new_task = Task(title=title)
+
+    db.add(new_task)
+    db.commit()
+
+    return RedirectResponse(url="/tasks", status_code=303)

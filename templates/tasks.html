@@ -33,6 +33,20 @@
         <p>No tasks available. Add your first task!</p>
     
     {% endif %}
+
+
+    <form action="/tasks" method="post">
+        <input
+            type="text"
+            name="title"
+            placeholder="Enter a new task"
+            required
+        >
+
+        <button type="submit">Add Task</button>
+    </form>
+
+    
 </body>
 
 </html>
