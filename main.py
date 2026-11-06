@@ -55,3 +55,15 @@ def create_task(title: str = Form(...), db: Session = Depends(get_db)):
     db.commit()
 
     return RedirectResponse(url="/tasks", status_code=303)
+
+
+
+@app.post("/tasks/{task_id}/complete")
+def complete_task(task_id: int, db: Session = Depends(get_db)):
+    task = db.query(Task).filter(Task.id == task_id).first()
+
+    if task:
+        task.completed = True
+        db.commit()
+
+    return RedirectResponse(url="/tasks", status_code=303)

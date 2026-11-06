@@ -16,15 +16,20 @@
     {% if tasks %}
         {% for task in tasks %}
 
-            {% if task.completed %}
+            <p>
+                {{ task.title}} - 
 
-                <p>{{ task.title }} - Completed </p>
+                {% if task.completed %}
+                    completed
+                {% else %}
+                    Pending
 
-            {% else %}
+                    <form action="/tasks/{{ task.id}}/complete" method="post">
+                        <button type="submit">Mark as Completed</button>
+                    </form>
+                {% endif %}
+            </p>
 
-                <p>{{ task.title }} - Pending</p>
-                
-            {% endif %}
     
         {% endfor %}
     
@@ -46,7 +51,7 @@
         <button type="submit">Add Task</button>
     </form>
 
-    
+
 </body>
 
 </html>
