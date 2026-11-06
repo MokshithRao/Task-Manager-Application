@@ -34,20 +34,8 @@ def home():
 @app.get("/tasks")
 def show_tasks(request: Request, db: Session = Depends(get_db)):
 
-    tasks = [
-        {
-            "title": "Learn FastAPI",
-            "completed": True
-        },
-        {
-            "title": "Complete SQL assignment",
-            "completed": False
-        },
-        {
-            "title": "Build Task Manager",
-            "completed": False
-        }
-    ]
+    tasks = db.query(Task).order_by(Task.id.desc()).all()
+
 
     return templates.TemplateResponse(
         request = request,

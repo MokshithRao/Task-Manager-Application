@@ -16,11 +16,14 @@
     {% if tasks %}
         {% for task in tasks %}
 
-            {% if task.completed == True %}
+            {% if task.completed %}
 
-                <p>{{ task.title, 'completed' }} </p>
+                <p>{{ task.title }} - Completed </p>
+
             {% else %}
-                <p>{{ task.title, 'Pending' }}</p>
+
+                <p>{{ task.title }} - Pending</p>
+                
             {% endif %}
     
         {% endfor %}
