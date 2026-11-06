@@ -58,12 +58,29 @@ def create_task(title: str = Form(...), db: Session = Depends(get_db)):
 
 
 
+# Mark a task as completed.
 @app.post("/tasks/{task_id}/complete")
 def complete_task(task_id: int, db: Session = Depends(get_db)):
     task = db.query(Task).filter(Task.id == task_id).first()
 
     if task:
         task.completed = True
+        db.commit()
+
+    return RedirectResponse(url="/tasks", status_code=303)
+
+
+
+# Update an existing task title.
+@app.post("/tasks/{task_id}/edit")
+def edit_task(task_id: int, 
+              title: str = Form(...), 
+              db: Session = Depends(get_db)):
+
+    task = db.query(Task).filter(Task.id == task_id).first()
+
+    if task:
+        task.title = title
         db.commit()
 
     return RedirectResponse(url="/tasks", status_code=303)
