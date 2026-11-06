@@ -13,11 +13,20 @@
 <body>
 
     <header class="hero">
-        <div>
-            <p class="eyebrow">LESS CHAOS. MORE CLARITY.</p>
-            <h1>My Task Manager</h1>
-            <p>Bring your daily tasks together in one place.</p>
-        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <p class="eyebrow">LESS CHAOS. MORE CLARITY.</p>
+                <h1>My Task Manager</h1>
+                <p>Bring your daily tasks together in one place.</p>
+            </div>
+
+        <img
+            src="{{ url_for('static', path='/images/task-banner.png') }}"
+            alt="Workspace with a notebook"
+            class="hero-image"
+        >
+    </div>
+
     </header>
 
     <main class="container">
