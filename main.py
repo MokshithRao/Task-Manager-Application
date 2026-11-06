@@ -84,3 +84,16 @@ def edit_task(task_id: int,
         db.commit()
 
     return RedirectResponse(url="/tasks", status_code=303)
+
+
+
+# Delete a task from the database.
+@app.post("/tasks/{task_id}/delete")
+def delete_task(task_id: int, db: Session = Depends(get_db)):
+    task = db.query(Task).filter(Task.id == task_id).first()
+
+    if task:
+        db.delete(task)
+        db.commit()
+
+    return RedirectResponse(url="/tasks", status_code=303)

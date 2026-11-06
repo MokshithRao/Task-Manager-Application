@@ -40,6 +40,10 @@
 
                 <button type="submit">Update</button>
             </form>
+
+            <form action="/tasks/{{ task.id }}/delete" method="post">
+                <button type="submit">Delete</button>
+            </form>
     
         {% endfor %}
     
